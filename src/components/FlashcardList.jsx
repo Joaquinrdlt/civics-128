@@ -1,4 +1,4 @@
-// src/components/FlashcardList.jsx
+// loops through all questions and shows a flashcard for each
 import Flashcard from "./Flashcard";
 
 function FlashcardList({ questions }) {

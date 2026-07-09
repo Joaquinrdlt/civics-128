@@ -1,21 +1,25 @@
-// src/App.jsx
+// handles switching between "List view" and "Random view" modes
 import { useState } from "react";
 import FlashcardList from "./components/FlashcardList";
 import Flashcard from "./components/Flashcard";
 import questions from "./data/questions";
 
 function App() {
-  const [mode, setMode] = useState("list"); // "list" or "random"
-  const [deck, setDeck] = useState([...questions]); // shuffled deck
+  // "list" shows all cards, "random" shows one card at a time
+  const [mode, setMode] = useState("list");
+  // holds a shuffled copy of all questions for random mode
+  const [deck, setDeck] = useState([...questions]);
+  // tracks the current card in use
   const [index, setIndex] = useState(0);
 
-  // Shuffle deck once when switching to random mode
+  // shuffle deck once when switching to random mode
   const shuffleDeck = () => {
     const shuffled = [...questions].sort(() => Math.random() - 0.5);
     setDeck(shuffled);
     setIndex(0);
   };
 
+  // moves to the next card in deck
   const nextCard = () => {
     setIndex((prev) => (prev + 1) % deck.length);
   };
@@ -41,12 +45,30 @@ function App() {
         <FlashcardList questions={questions} />
       ) : (
         <div>
+          {/* progress tracker */}
+          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+            Card {index + 1} of {deck.length}
+          </p>
+          {/* current flashcard */}
           <Flashcard
-            key={index} // ensures fresh state each card
+            key={index} // ensures fresh state each card (for random mode)
             question={deck[index].question}
             answer={deck[index].answer}
           />
-          <button onClick={nextCard}>Next</button>
+          {/* Navigation Buttons */}
+          <div style={{ marginTop: "10px" }}>
+            <button
+              onClick={() =>
+                setIndex((prev) => (prev - 1 + deck.length) % deck.length)
+              }
+            >
+              Previous
+            </button>
+            <button onClick={nextCard}>Next</button>
+            <button onClick={shuffleDeck} style={{ marginLeft: "10px" }}>
+              Restart Deck
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -1,10 +1,10 @@
-// src/components/Flashcard.jsx
+// shows one question and toggles the answer when clicked
 import { useState, useEffect } from "react";
 
 function Flashcard({ question, answer }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
-  // Reset answer visibility whenever the question changes
+  // Resets the answer visibility whenever the question changes (for the randomizer mode)
   useEffect(() => {
     setShowAnswer(false);
   }, [question]);
