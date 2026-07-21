@@ -314,7 +314,117 @@ const questions = [
       "(It states that the) powers not given to the federal government belong to the states or to the people.",
   },
   {
-    id: 60,
+    id: 61,
+    question: "Who is the governor of your state now?",
+    answer: "Gavin Newsom",
+  },
+  {
+    id: 62,
+    question: "What is the captital of your state?",
+    answer: "Sacramento",
+  },
+  {
+    id: 63,
+    question:
+      "There are four amendments to the U.S. Constitution about who can vote. Describe one of them.",
+    answer: "Citizens eighteen (18) and older (can vote).",
+  },
+  {
+    id: 64,
+    question:
+      "Who can vote in federal elections, run for federal office, and serve on a jury in the United States?",
+    answer: "Citizens of the United States",
+  },
+  {
+    id: 65,
+    question: "What are three righs of everyone living in the United States?",
+    answer: "Freedom of Speech, Freedom of expression, Freedom of assembly",
+  },
+  {
+    id: 66,
+    question:
+      "What do we show loyalty to when we say the Pledge of Allegiance?",
+    answer: "The United States",
+  },
+  {
+    id: 67,
+    question:
+      "Name two promises that new citizens make in the Oath of Allegiance.",
+    answer:
+      "Obey the laws of the United State, and Serve in the military (if needed)",
+  },
+  {
+    id: 68,
+    question: "How can people become United States Citizens?",
+    answer:
+      "Be born in the United States, under conditions set by the 14th Amendment",
+  },
+  {
+    id: 69,
+    question:
+      "What are two examples of civic participation in the United States?",
+    answer: "Vote, and Run for office",
+  },
+  {
+    id: 70,
+    question: "What is one way Americans can serve their country?",
+    answer: "Pay taxes",
+  },
+  {
+    id: 71,
+    question: "Why is it important to pay federal taxes?",
+    answer: "Required by law",
+  },
+  {
+    id: 72,
+    question:
+      "It is important for all men age 18 through 25 to register for the Selectice Service, Name one reason why.",
+    answer: "Required by law",
+  },
+  {
+    id: 73,
+    question: "The colonists came to America for many reasons. Name one.",
+    answer: "Freedom",
+  },
+  {
+    id: 74,
+    question: "Who lived in America before the Europeans arrived?",
+    answer: "Native Americans ",
+  },
+  {
+    id: 75,
+    question: "What group of people was taken and sold as slaves?",
+    answer: "Africans",
+  },
+  {
+    id: 76,
+    question:
+      "What war did the Americans fight to win independence from Britain?",
+    answer: "American Revolution",
+  },
+  {
+    id: 77,
+    question:
+      "Name one reason why the Americans declared independence from Britain.",
+    answer: "High taxes",
+  },
+  {
+    id: 78,
+    question: "Who wrote the Declaration of Independence?",
+    answer: "(Thomas) Jefferson",
+  },
+  {
+    id: 79,
+    question: "When was the Declaration of Independence adopted?",
+    answer: "July 4, 1776",
+  },
+  {
+    id: 80,
+    question: "The American Revolution had many important events. Name one.",
+    answer: "Declaration of Independence",
+  },
+  {
+    id: 81,
     question: "",
     answer: "",
   },
