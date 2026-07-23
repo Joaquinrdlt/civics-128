@@ -425,6 +425,247 @@ const questions = [
   },
   {
     id: 81,
+    question: "There were 13 orginal states. Name five.",
+    answer:
+      "New York, New Jersey, Massachusetts, North Carolina, South Carolina ",
+  },
+  {
+    id: 82,
+    question: "What founding document was written in 1787?",
+    answer: "(U.S.) Constitution",
+  },
+  {
+    id: 83,
+    question:
+      "The Federalist Papers supported the passage of the U.S. Constitution. Name one of the writers.",
+    answer: "(James) Madison",
+  },
+  {
+    id: 84,
+    question: "Why were the Federalist Papers important?",
+    answer: "They helped people understand the (U.S.) Constitution",
+  },
+  {
+    id: 85,
+    question: "Benjamin Franklin is famous for many things. Name one.",
+    answer: "Founded the first free public libraries",
+  },
+  {
+    id: 86,
+    question: "George Washington is famous for many things. Name one.",
+    answer: "First president of the United States",
+  },
+  {
+    id: 87,
+    question: "Thomas Jefferson is famous for many things. Name one.",
+    answer: "Writer of the Declaration of Independence",
+  },
+  {
+    id: 88,
+    question: "James Madison is famous for many things. Name one.",
+    answer: "Fourth president of the United States",
+  },
+  {
+    id: 89,
+    question: "Alexander Hamilton is famous for many things. Name one.",
+    answer: "First Secretary of the Treasury",
+  },
+  {
+    id: 90,
+    question: "What territory did the United States buy from France in 1803?",
+    answer: "Louisiana",
+  },
+  {
+    id: 91,
+    question: "Name one war fought by the United States in the 1800s.",
+    answer: "Civil War",
+  },
+  {
+    id: 92,
+    question: "Name the U.S. war between the North and the South.",
+    answer: "The Civil War",
+  },
+  {
+    id: 93,
+    question: "The Civil War had many important events. Name one.",
+    answer: "Lincoln was assassinated ",
+  },
+  {
+    id: 94,
+    question: "Abraham Lincoln is famous for many things. Name one.",
+    answer: "Freed the slaves (Emancipation Proclamation)",
+  },
+  {
+    id: 95,
+    question: "What did the Emancipation Proclamation do?",
+    answer: "Freed the slaves, Freed the slaves in the Conderacy",
+  },
+  {
+    id: 96,
+    question: "What U.S. war ended slavery?",
+    answer: "The Civil War",
+  },
+  {
+    id: 97,
+    question:
+      "What amendment says all persons born or naturalized in the United States, and subject to the jurisdiction thereof, are U.S. citizens ",
+    answer: "14th Amendment",
+  },
+  {
+    id: 98,
+    question: "When did all men get the right to vote?",
+    answer: "(With the) 15th Amendment",
+  },
+  {
+    id: 99,
+    question: "Name one leader of the women's rights movement in the 1800s.",
+    answer: "Lucy Stone",
+  },
+  {
+    id: 100,
+    question: "Name one war fought by the United States in the 1900s.",
+    answer: "World War II (2)",
+  },
+  {
+    id: 101,
+    question: "Wny did the United States enter World War I?",
+    answer: "To support the Allied Powers (England, France, Italy, and Russia",
+  },
+  {
+    id: 102,
+    question: "When did all women get the right to vote?",
+    answer: "(With the) 19th Amendment",
+  },
+  {
+    id: 103,
+    question: "What was the Great Depression?",
+    answer: "Longest economic recession in modern history",
+  },
+  {
+    id: 104,
+    question: "When did the Great Depresson start?",
+    answer: "Stock market crash of 1929",
+  },
+  {
+    id: 105,
+    question: "Who was president during the Great Depression and World War II?",
+    answer: "(Franklin) Roosevelt",
+  },
+  {
+    id: 106,
+    question: "Why did the United States enter World War II?",
+    answer: "Japanese attacked Pearl Harbor",
+  },
+  {
+    id: 107,
+    question: "Dwight Eisenhower is famous for many things. Name one.",
+    answer: "General during World War II",
+  },
+  {
+    id: 108,
+    question: "Who was the United States' main rival during the Cold War?",
+    answer: "Russia",
+  },
+  {
+    id: 109,
+    question:
+      "During the Cold War, what was one main concern of the United States?",
+    answer: "Nuclear war",
+  },
+  {
+    id: 110,
+    question: "Why did the United States enter the Korean War?",
+    answer: "To stop the spread of communism",
+  },
+  {
+    id: 111,
+    question: "Why did the United States enter the Vietnam War?",
+    answer: "To stop the spread of communism",
+  },
+  {
+    id: 112,
+    question: "What did the civil rights movement do?",
+    answer: "Fought to end racial discrimination",
+  },
+  {
+    id: 113,
+    question: "Martin Luther King, Jr. is famous for many things. Name one.",
+    answer: "Worked for equality for all Americans",
+  },
+  {
+    id: 114,
+    question: "Why did the United States enter the Persian Gulf War?",
+    answer: "To force the Iraqi military from Kuwait",
+  },
+  {
+    id: 115,
+    question:
+      "What major event happened on September 11, 2001 in the United States?",
+    answer: "Terrorist attacked the United States",
+  },
+  {
+    id: 116,
+    question:
+      "Name one U.S. military conflict after the September 11, 2001 attacks.",
+    answer: "War in Afghanistan",
+  },
+  {
+    id: 117,
+    question: "Name one American Indian Tribe in the United States",
+    answer: "Apache",
+  },
+  {
+    id: 118,
+    question: "Name one example of an American innovation.",
+    answer: "Light bulb",
+  },
+  {
+    id: 119,
+    question: "What is the capital of the United States",
+    answer: "Washington, D.C.",
+  },
+  {
+    id: 120,
+    question: "Where is the Statue of Liberty?",
+    answer: "New York (Harbor)",
+  },
+  {
+    id: 121,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 122,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 123,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 124,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 125,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 126,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 127,
+    question: "",
+    answer: "",
+  },
+  {
+    id: 128,
     question: "",
     answer: "",
   },
