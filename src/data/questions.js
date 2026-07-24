@@ -1,4 +1,5 @@
 // src/data/questions.js
+// All 128 questions for the Civics test (2026)
 const questions = [
   {
     id: 1,
@@ -646,7 +647,8 @@ const questions = [
   },
   {
     id: 124,
-    question: "The Nation's first motto was \"E Pluribus Unum.\" What does that mean?",
+    question:
+      'The Nation\'s first motto was "E Pluribus Unum." What does that mean?',
     answer: "We all become one",
   },
   {
