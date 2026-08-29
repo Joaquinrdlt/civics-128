@@ -352,13 +352,12 @@ const questions = [
     question:
       "Name two promises that new citizens make in the Oath of Allegiance.",
     answer:
-      "Obey the laws of the United State, and Serve in the military (if needed)",
+      "Obey the laws of the United States, and Be Loyal to the United States",
   },
   {
     id: 68,
     question: "How can people become United States Citizens?",
-    answer:
-      "Be born in the United States, under conditions set by the 14th Amendment",
+    answer: "Naturalize",
   },
   {
     id: 69,
@@ -515,7 +514,7 @@ const questions = [
   {
     id: 98,
     question: "When did all men get the right to vote?",
-    answer: "(With the) 15th Amendment",
+    answer: "After the Civil War",
   },
   {
     id: 99,
