@@ -534,7 +534,7 @@ const questions = [
   {
     id: 102,
     question: "When did all women get the right to vote?",
-    answer: "(With the) 19th Amendment",
+    answer: "After World War I (19th Amendment)",
   },
   {
     id: 103,
