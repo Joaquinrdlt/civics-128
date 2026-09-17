@@ -448,7 +448,7 @@ const questions = [
   {
     id: 85,
     question: "Benjamin Franklin is famous for many things. Name one.",
-    answer: "Founded the first free public libraries",
+    answer: "U.S. diplomat",
   },
   {
     id: 86,
@@ -463,12 +463,12 @@ const questions = [
   {
     id: 88,
     question: "James Madison is famous for many things. Name one.",
-    answer: "Fourth president of the United States",
+    answer: "One of the writers of the Federalist Papers",
   },
   {
     id: 89,
     question: "Alexander Hamilton is famous for many things. Name one.",
-    answer: "First Secretary of the Treasury",
+    answer: "Helped establish the First Bank of the United States",
   },
   {
     id: 90,
@@ -528,7 +528,7 @@ const questions = [
   },
   {
     id: 101,
-    question: "Wny did the United States enter World War I?",
+    question: "Why did the United States enter World War I?",
     answer: "To support the Allied Powers (England, France, Italy, and Russia",
   },
   {
