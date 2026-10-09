@@ -5,6 +5,7 @@ function StudyMore({ questions, missCounts, onRemove }) {
   const [busyQuestionId, setBusyQuestionId] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Remove a learned question and keep the button disabled while it saves.
   const handleRemove = async (questionId) => {
     setBusyQuestionId(questionId);
     setErrorMessage("");
@@ -17,6 +18,7 @@ function StudyMore({ questions, missCounts, onRemove }) {
     }
   };
 
+  // Show each saved question with its miss count and learned action.
   return (
     <section>
       <h2>Study More</h2>

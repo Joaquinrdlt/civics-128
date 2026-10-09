@@ -1,8 +1,17 @@
-/* global styles for the app */
+/* Keep sizing predictable when padding and borders are added to elements. */
+* {
+  box-sizing: border-box;
+}
+
+/* Set the page defaults and let the React app fill the screen. */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
   background-color: #f0f2f5;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 h1 {
@@ -10,6 +19,16 @@ h1 {
   color: #333;
 }
 
+/* Keep the study content readable on wide screens and within phone safe areas. */
+.app-container {
+  width: min(100%, 600px);
+  margin: 0 auto;
+  padding: max(20px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) 20px
+    max(16px, env(safe-area-inset-left));
+}
+
+/* Header and view controls stay flexible as the screen gets narrower. */
 .app-header {
   display: flex;
   align-items: center;
@@ -21,29 +40,78 @@ h1 {
 .app-header h1 {
   flex: 1;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
+.mode-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.mode-switch button {
+  margin: 0;
+}
+
+.random-progress {
+  text-align: center;
+  font-weight: bold;
+}
+
+.random-controls {
+  margin-top: 10px;
+}
+
+.random-restart {
+  margin-left: 10px;
+}
+
+/* Shared card appearance for list, random, mock exam, and Study More views. */
+.flashcard {
+  overflow-wrap: anywhere;
+  padding: 20px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+/* Center the sign-in dialog and allow scrolling inside it on short screens. */
 .auth-modal {
   position: fixed;
   inset: 0;
   z-index: 1000;
   display: grid;
   place-items: center;
-  padding: 16px;
+  padding: 12px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   background: rgb(0 0 0 / 55%);
 }
 
 .auth-modal__content,
 .local-sign-in-prompt {
   position: relative;
-  width: min(100%, 460px);
-  max-height: calc(100vh - 32px);
+  width: min(100%, 440px);
+  max-height: calc(100vh - 24px);
+  overflow-x: hidden;
   overflow-y: auto;
-  padding: 40px 20px 20px;
+  padding: 40px 16px 16px;
   border-radius: 12px;
   background: white;
   box-shadow: 0 16px 48px rgb(0 0 0 / 25%);
+  overscroll-behavior: contain;
+}
+
+/* Tighten Amplify's default form spacing to fit the app's centered dialog. */
+.auth-modal__content {
+  --amplify-components-authenticator-form-padding: 0.75rem;
+  --amplify-components-authenticator-footer-padding-bottom: 0.5rem;
+  --amplify-components-authenticator-router-box-shadow: none;
+  --amplify-components-authenticator-router-border-width: 0;
+  --amplify-space-medium: 0.75rem;
+  --amplify-space-large: 1rem;
 }
 
 .auth-modal__content .amplify-authenticator {
@@ -52,21 +120,33 @@ h1 {
   width: 100%;
 }
 
+.auth-modal__content [data-amplify-container] {
+  width: 100%;
+  max-width: 100%;
+}
+
+.auth-modal__content [data-amplify-router] {
+  width: 100%;
+}
+
 .auth-modal__close {
   position: absolute;
   top: 8px;
   right: 8px;
   z-index: 1;
+  min-width: 40px;
+  min-height: 40px;
   padding: 4px 10px;
   background: #5b6470;
   font-size: 20px;
 }
 
+/* Give the local preview prompt the same spacing as the sign-in dialog. */
 .local-sign-in-prompt h2 {
   margin-top: 0;
 }
 
-/* hover effect */
+/* Add a small hover cue on devices that use a mouse. */
 .flashcard {
   transition: transform 0.2s ease;
 }
@@ -75,9 +155,10 @@ h1 {
   transform: scale(1.02);
 }
 
-/* button style */
+/* Keep buttons consistent and large enough to tap comfortably. */
 button {
   margin: 0 5px;
+  min-height: 44px;
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
@@ -88,4 +169,75 @@ button {
 
 button:hover {
   background-color: #005fa3;
+}
+
+/* Use the visible viewport height when the browser supports it. */
+@supports (height: 100dvh) {
+  .auth-modal__content,
+  .local-sign-in-prompt {
+    max-height: calc(100dvh - 24px);
+  }
+}
+
+/* Arrange controls and cards for narrow phone screens. */
+@media (max-width: 480px) {
+  .app-container {
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-left: max(12px, env(safe-area-inset-left));
+  }
+
+  .app-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .app-header h1 {
+    text-align: left;
+    font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+
+  .app-header button {
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .mode-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mode-switch button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .flashcard {
+    padding: 16px;
+    margin: 10px 0;
+  }
+
+  .auth-modal {
+    padding: 8px;
+  }
+
+  .auth-modal__content,
+  .local-sign-in-prompt {
+    max-height: calc(100vh - 16px);
+    padding: 40px 12px 12px;
+    border-radius: 10px;
+  }
+
+  .auth-modal__content {
+    --amplify-components-authenticator-form-padding: 0.5rem;
+    --amplify-space-medium: 0.625rem;
+    --amplify-space-large: 0.75rem;
+  }
+}
+
+/* Avoid a hover animation that cannot be meaningfully used on touch screens. */
+@media (hover: none) {
+  .flashcard:hover {
+    transform: none;
+  }
 }

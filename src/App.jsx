@@ -14,11 +14,11 @@ import questions from "./data/questions";
 const STUDY_MORE_STORAGE_KEY = "civics-128-study-more";
 
 function App({ cloudEnabled = false, user, signIn, signOut }) {
-  // "list" shows all cards, "random" shows one card at a time, "mock" starts an exam
+  // Track which study screen is currently open.
   const [mode, setMode] = useState("list");
-  // holds a shuffled copy of all questions for random mode
+  // Keep a separate deck so random mode can shuffle without changing the source list.
   const [deck, setDeck] = useState([...questions]);
-  // tracks the current card in use
+  // Track the selected card while moving through the random deck.
   const [index, setIndex] = useState(0);
   const [missCounts, setMissCounts] = useState(() => {
     if (cloudEnabled) {
@@ -34,6 +34,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
   const [localSignInPrompt, setLocalSignInPrompt] = useState(false);
   const isSignedIn = Boolean(user);
 
+  // Keep local progress for previews and signed-out users; signed-in progress comes from the cloud.
   useEffect(() => {
     if (!cloudEnabled || !isSignedIn) {
       window.localStorage.setItem(
@@ -43,6 +44,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
     }
   }, [cloudEnabled, isSignedIn, missCounts]);
 
+  // Load this user's saved missed questions after sign-in or when retrying a failed sync.
   useEffect(() => {
     if (!cloudEnabled || !isSignedIn) {
       setCloudLoading(false);
@@ -75,14 +77,14 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
     };
   }, [cloudEnabled, isSignedIn, user?.userId, syncAttempt]);
 
-  // shuffle deck once when switching to random mode
+  // Shuffle a fresh copy of the question list and start from the first card.
   const shuffleDeck = () => {
     const shuffled = [...questions].sort(() => Math.random() - 0.5);
     setDeck(shuffled);
     setIndex(0);
   };
 
-  // moves to the next card in deck
+  // Wrap around to the start after reaching the end of the deck.
   const nextCard = () => {
     setIndex((prev) => (prev + 1) % deck.length);
   };
@@ -118,6 +120,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
     (question) => missCounts[question.id] > 0,
   );
 
+  // Open the real sign-in flow on the deployed app or an explanation in local preview.
   const requestSignIn = () => {
     if (cloudEnabled) {
       signIn();
@@ -134,7 +137,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
+    <div className="app-container">
       <header className="app-header">
         <h1>Civics Flashcards</h1>
         {cloudEnabled && user ? (
@@ -177,7 +180,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
         </p>
       )}
       {/* Mode Switch */}
-      <div style={{ marginBottom: "20px" }}>
+      <div className="mode-switch">
         <button onClick={() => setMode("list")}>List View</button>
         <button
           onClick={() => {
@@ -218,7 +221,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
       ) : mode === "random" ? (
         <div>
           {/* progress tracker */}
-          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+          <p className="random-progress">
             Card {index + 1} of {deck.length}
           </p>
           {/* current flashcard */}
@@ -228,7 +231,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
             answer={deck[index].answer}
           />
           {/* Navigation Buttons */}
-          <div style={{ marginTop: "10px" }}>
+          <div className="random-controls">
             <button
               onClick={() =>
                 setIndex((prev) => (prev - 1 + deck.length) % deck.length)
@@ -237,7 +240,7 @@ function App({ cloudEnabled = false, user, signIn, signOut }) {
               Previous
             </button>
             <button onClick={nextCard}>Next</button>
-            <button onClick={shuffleDeck} style={{ marginLeft: "10px" }}>
+            <button className="random-restart" onClick={shuffleDeck}>
               Restart Deck
             </button>
           </div>

@@ -1,25 +1,25 @@
-// shows one question and toggles the answer when clicked
 import { useState, useEffect } from "react";
 
 function Flashcard({ question, answer }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
-  // Resets the answer visibility whenever the question changes (for the randomizer mode)
+  // Hide the previous answer when the random deck moves to a new question.
   useEffect(() => {
     setShowAnswer(false);
   }, [question]);
 
+  // The card supports mouse, touch, and keyboard input.
   return (
     <div
       className="flashcard"
       onClick={() => setShowAnswer(!showAnswer)}
-      style={{
-        border: "1px solid #ccc",
-        padding: "20px",
-        margin: "10px",
-        cursor: "pointer",
-        borderRadius: "8px",
-        background: "#f9f9f9",
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setShowAnswer((visible) => !visible);
+        }
       }}
     >
       <h3>{question}</h3>

@@ -1,5 +1,6 @@
 // src/data/questions.js
-// All 128 questions for the Civics test (2026)
+// All 128 civics questions used by the list, random, exam, and Study More views.
+// Keep each question's numeric ID stable because saved miss counts refer to it.
 const questions = [
   {
     id: 1,

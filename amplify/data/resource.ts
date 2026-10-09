@@ -1,5 +1,6 @@
 import { a, defineData } from "@aws-amplify/backend";
 
+// Store each user's missed question IDs and counts in an owner-protected model.
 const schema = a.schema({
   StudyQuestion: a
     .model({

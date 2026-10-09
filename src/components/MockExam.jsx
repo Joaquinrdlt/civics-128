@@ -4,6 +4,7 @@ const EXAM_QUESTION_COUNT = 20;
 const PASSING_SCORE = 12;
 const FAILING_MISSES = 8;
 
+// Shuffle in place on a copy so the original question list stays unchanged.
 function createExamDeck(questions) {
   const shuffled = [...questions];
 
@@ -25,6 +26,7 @@ function MockExam({ questions, onAnswer }) {
   const [saveError, setSaveError] = useState("");
   const [savingAnswer, setSavingAnswer] = useState(false);
 
+  // Start a new exam with a fresh random set and reset the score.
   const restartExam = () => {
     setExamDeck(createExamDeck(questions));
     setCurrentIndex(0);
@@ -34,6 +36,7 @@ function MockExam({ questions, onAnswer }) {
     setResult(null);
   };
 
+  // Save the answer before advancing so a failed save does not lose progress.
   const recordAnswer = async (wasCorrect) => {
     const nextCorrectCount = correctCount + (wasCorrect ? 1 : 0);
     const nextWrongCount = wrongCount + (wasCorrect ? 0 : 1);
@@ -53,6 +56,7 @@ function MockExam({ questions, onAnswer }) {
     setAnswerRevealed(false);
     setSavingAnswer(false);
 
+    // Stop as soon as the pass or fail threshold is reached.
     if (nextCorrectCount >= PASSING_SCORE) {
       setResult("passed");
     } else if (nextWrongCount >= FAILING_MISSES) {
@@ -90,16 +94,7 @@ function MockExam({ questions, onAnswer }) {
         Correct: {correctCount} | Incorrect: {wrongCount}
       </p>
 
-      <div
-        className="flashcard"
-        style={{
-          border: "1px solid #ccc",
-          padding: "20px",
-          margin: "10px",
-          borderRadius: "8px",
-          background: "#f9f9f9",
-        }}
-      >
+      <div className="flashcard">
         <h3>{currentQuestion.question}</h3>
         {answerRevealed && (
           <p>
