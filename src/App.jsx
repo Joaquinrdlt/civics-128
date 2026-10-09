@@ -13,7 +13,7 @@ import questions from "./data/questions";
 
 const STUDY_MORE_STORAGE_KEY = "civics-128-study-more";
 
-function App({ cloudEnabled = false, user, signOut }) {
+function App({ cloudEnabled = false, user, signIn, signOut }) {
   // "list" shows all cards, "random" shows one card at a time, "mock" starts an exam
   const [mode, setMode] = useState("list");
   // holds a shuffled copy of all questions for random mode
@@ -31,18 +31,21 @@ function App({ cloudEnabled = false, user, signOut }) {
   const [cloudLoading, setCloudLoading] = useState(cloudEnabled);
   const [cloudError, setCloudError] = useState("");
   const [syncAttempt, setSyncAttempt] = useState(0);
+  const [localSignInPrompt, setLocalSignInPrompt] = useState(false);
+  const isSignedIn = Boolean(user);
 
   useEffect(() => {
-    if (!cloudEnabled) {
+    if (!cloudEnabled || !isSignedIn) {
       window.localStorage.setItem(
         STUDY_MORE_STORAGE_KEY,
         JSON.stringify(missCounts),
       );
     }
-  }, [cloudEnabled, missCounts]);
+  }, [cloudEnabled, isSignedIn, missCounts]);
 
   useEffect(() => {
-    if (!cloudEnabled) {
+    if (!cloudEnabled || !isSignedIn) {
+      setCloudLoading(false);
       return undefined;
     }
 
@@ -70,7 +73,7 @@ function App({ cloudEnabled = false, user, signOut }) {
     return () => {
       active = false;
     };
-  }, [cloudEnabled, user?.userId, syncAttempt]);
+  }, [cloudEnabled, isSignedIn, user?.userId, syncAttempt]);
 
   // shuffle deck once when switching to random mode
   const shuffleDeck = () => {
@@ -89,7 +92,7 @@ function App({ cloudEnabled = false, user, signOut }) {
       return;
     }
 
-    if (cloudEnabled) {
+    if (cloudEnabled && user) {
       await recordIncorrectAnswer(question.id);
     }
 
@@ -115,20 +118,55 @@ function App({ cloudEnabled = false, user, signOut }) {
     (question) => missCounts[question.id] > 0,
   );
 
+  const requestSignIn = () => {
+    if (cloudEnabled) {
+      signIn();
+    } else {
+      setLocalSignInPrompt(true);
+    }
+  };
+
+  const openStudyMore = () => {
+    setMode("studyMore");
+    if (!isSignedIn) {
+      requestSignIn();
+    }
+  };
+
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h1>Civics Flashcards</h1>
-      {cloudEnabled && (
-        <p>
-          Signed in as {user?.signInDetails?.loginId ?? "your account"}{" "}
+      <header className="app-header">
+        <h1>Civics Flashcards</h1>
+        {cloudEnabled && user ? (
           <button onClick={signOut}>Sign out</button>
-        </p>
-      )}
-      {!cloudEnabled && (
-        <p role="status">
-          Cloud sign-in is not configured yet. Study More is saved in this
-          browser until the Amplify backend is deployed.
-        </p>
+        ) : (
+          <button onClick={requestSignIn}>Sign in</button>
+        )}
+      </header>
+      {localSignInPrompt && !cloudEnabled && (
+        <div className="auth-modal" role="presentation">
+          <section
+            className="local-sign-in-prompt"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="local-sign-in-title"
+          >
+            <button
+              className="auth-modal__close"
+              aria-label="Close sign-in message"
+              onClick={() => setLocalSignInPrompt(false)}
+            >
+              ×
+            </button>
+            <h2 id="local-sign-in-title">Sign in to use Study More</h2>
+            <p>
+              Sign-in and cross-device Study More sync are available on the
+              deployed app. This local preview doesn’t have the AWS sign-in
+              configuration.
+            </p>
+            <button onClick={() => setLocalSignInPrompt(false)}>Close</button>
+          </section>
+        </div>
       )}
       {cloudError && (
         <p role="alert">
@@ -150,7 +188,7 @@ function App({ cloudEnabled = false, user, signOut }) {
           Random View
         </button>
         <button onClick={() => setMode("mock")}>Mock Exam</button>
-        <button onClick={() => setMode("studyMore")}>
+        <button onClick={openStudyMore}>
           Study More ({studyMoreQuestions.length})
         </button>
       </div>
@@ -158,7 +196,17 @@ function App({ cloudEnabled = false, user, signOut }) {
       {mode === "list" ? (
         <FlashcardList questions={questions} />
       ) : mode === "studyMore" ? (
-        cloudLoading ? (
+        !isSignedIn ? (
+          <section>
+            <h2>Study More</h2>
+            <p>
+              {cloudEnabled
+                ? "Sign in to see your saved missed questions."
+                : "Sign in to see your saved missed questions on the deployed app."}
+            </p>
+            <button onClick={requestSignIn}>Sign in</button>
+          </section>
+        ) : cloudLoading ? (
           <p role="status">Loading your Study More questions...</p>
         ) : (
           <StudyMore

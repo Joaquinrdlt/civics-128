@@ -1,11 +1,26 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
+import { getCurrentUser, signOut as amplifySignOut } from "aws-amplify/auth";
 import App from "./App";
+
+function SignedIn({ user, onAuthenticated }) {
+  useEffect(() => {
+    onAuthenticated(user);
+  }, [onAuthenticated, user]);
+
+  return <p role="status">Signing you in...</p>;
+}
 
 function AppBootstrap() {
   const [backendState, setBackendState] = useState("loading");
   const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(null);
+  const [authOpen, setAuthOpen] = useState(false);
+  const handleAuthenticated = useCallback((signedInUser) => {
+    setUser(signedInUser);
+    setAuthOpen(false);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -46,6 +61,17 @@ function AppBootstrap() {
         }
 
         Amplify.configure(outputs);
+        try {
+          const currentUser = await getCurrentUser();
+          if (active) {
+            setUser(currentUser);
+          }
+        } catch (error) {
+          if (error?.name !== "UserUnAuthenticatedException") {
+            throw error;
+          }
+        }
+
         if (active) {
           setBackendState("cloud");
         }
@@ -78,11 +104,51 @@ function AppBootstrap() {
   }
 
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <App cloudEnabled user={user} signOut={signOut} />
+    <>
+      <App
+        cloudEnabled
+        user={user}
+        signIn={() => setAuthOpen(true)}
+        signOut={async () => {
+          await amplifySignOut();
+          setUser(null);
+        }}
+      />
+      {authOpen && !user && (
+        <div
+          className="auth-modal"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setAuthOpen(false);
+            }
+          }}
+        >
+          <section
+            className="auth-modal__content"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Sign in or create an account"
+          >
+            <button
+              className="auth-modal__close"
+              aria-label="Close sign-in dialog"
+              onClick={() => setAuthOpen(false)}
+            >
+              ×
+            </button>
+            <Authenticator>
+              {({ user: authenticatedUser }) => (
+                <SignedIn
+                  user={authenticatedUser}
+                  onAuthenticated={handleAuthenticated}
+                />
+              )}
+            </Authenticator>
+          </section>
+        </div>
       )}
-    </Authenticator>
+    </>
   );
 }
 
