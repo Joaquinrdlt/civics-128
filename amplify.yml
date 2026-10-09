@@ -18,10 +18,10 @@ backend:
           npx ampx pipeline-deploy --branch "$AWS_BRANCH" --app-id "$AWS_APP_ID"
 frontend:
   phases:
-    preBuild:
+    build:
       commands:
         - |
-          # Use the same Node version for the frontend build.
+          # Install the build tools here so the build doesn't depend on preBuild running.
           export NVM_DIR="$HOME/.nvm"
           if [ ! -s "$NVM_DIR/nvm.sh" ]; then
             mkdir -p "$NVM_DIR"
@@ -32,9 +32,7 @@ frontend:
           nvm use 22.12.0
           node --version
           npm install --include=dev --cache .npm --prefer-offline
-    build:
-      commands:
-        - npm run build
+          npm run build
   artifacts:
     baseDirectory: dist
     files:
