@@ -2,6 +2,10 @@
 
 A responsive study app for the 128 U.S. civics questions used to prepare for the naturalization interview, designed for use on desktop and mobile. Study with flashcards, review a shuffled deck, or try a threshold-based mock exam. Signed-in users can keep a personal list of questions to study again.
 
+## Live Demo
+
+[Open Civics Flashcards](https://main.d3821p9d6gjds9.amplifyapp.com/)
+
 ## Features
 
 - **Flashcard list** — Browse all questions and reveal answers by clicking, tapping, or using the keyboard.
